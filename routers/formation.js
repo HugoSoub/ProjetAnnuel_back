@@ -26,6 +26,16 @@ app.get('/', (req, res) => {
     });
 });
 
+// Récupérer une formation
+app.get('/:id', (req, res) => {
+    var id = parseInt(req.params.id);
+    db.query("SELECT * FROM formation WHERE id=" + id, function(err, result){
+        if (err) throw err;
+        res.status(200).json(result);
+    });
+});
+
+
 // Insérer une formation
 app.post('/', (req, res) => {
     if (req.body.name != null){
