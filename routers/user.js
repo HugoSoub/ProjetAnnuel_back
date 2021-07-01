@@ -46,7 +46,7 @@ app.get('/roles/:roles', (req, res) => {
         throw "id of user is null";
     }
 
-    db.query("SELECT * FROM user WHERE roles=" + req.params.roles, function(err, result){
+    db.query('SELECT * FROM user WHERE roles=\'["' + req.params.roles + '"]\'', function(err, result){
         if (err) throw err;
         res.status(200).json(result);
     });

@@ -25,6 +25,20 @@ app.get('/', (req, res) => {
     });
 });
 
+// Récupérer les user_sessions par sessions
+app.get('/session/:id', (req, res) => {
+    if (req.params.id == null){
+        res.status(500);
+        throw "id of session is null";
+    }
+
+    var id = parseInt(req.params.id);
+    db.query("SELECT * FROM user_session WHERE id_session=" + id, function(err, result){
+        if (err) throw err;
+        res.status(200).json(result);
+    });
+});
+
 // Récupérer un user_session
 app.get('/:id', (req, res) => {
     if (req.params.id == null){
