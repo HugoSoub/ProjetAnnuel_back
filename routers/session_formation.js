@@ -50,7 +50,7 @@ app.post('/infos', (req, res) => {
         throw "ids_formation is null";
     }
 
-    db.query("INSERT INTO session (id_certification, name) VALUES ('" + req.body.id_certification + "', '" + req.body.name + "')");
+    db.query("INSERT INTO session (id_certification, name) VALUES (" + req.body.id_certification + ", '" + req.body.name + "')");
 
     var id_session = null;
 
@@ -76,15 +76,15 @@ app.post('/infos', (req, res) => {
 
 // Insérer une session_formation
 app.post('/', (req, res) => {
-    if (req.body.date != null){
+    if (req.body.date == null){
         res.status(500);
         throw "date of session_formation is null";
     }
-    if (req.body.id_session != null){
+    if (req.body.id_session == null){
         res.status(500);
         throw "id_session of session_formation is null";
     }
-    if (req.body.id_formation != null){
+    if (req.body.id_formation == null){
         res.status(500);
         throw "id_formation of session_formation is null";
     }

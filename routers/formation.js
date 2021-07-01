@@ -42,7 +42,7 @@ app.get('/:id', (req, res) => {
 
 // Insérer une formation
 app.post('/', (req, res) => {
-    if (req.body.name != null){
+    if (req.body.name == null){
         res.status(500);
         throw "name of formation is null";
     }
@@ -55,11 +55,11 @@ app.post('/', (req, res) => {
 
 // Modifier une formation
 app.put('/:id', (req, res) => {
-    if (req.body.name != null){
+    if (req.body.name == null){
         res.status(500);
         throw "name of formation is null";
     }
-    if (req.params.id != null){
+    if (req.params.id == null){
         res.status(500);
         throw "id of formation is null";
     }
@@ -73,7 +73,7 @@ app.put('/:id', (req, res) => {
 
 // Supprimer une formation
 app.delete('/:id', (req, res) => {
-    if (req.params.id != null){
+    if (req.params.id == null){
         res.status(500);
         throw "id of formation is null";
     }

@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 
 // Récupérer une certification
 app.get('/:id', (req, res) => {
-    if (req.params.id != null){
+    if (req.params.id == null){
         res.status(500);
         throw "id of certification is null";
     }
@@ -42,11 +42,11 @@ app.get('/:id', (req, res) => {
 
 // Insérer une certification
 app.post('/', (req, res) => {
-    if (req.body.name != null){
+    if (req.body.name == null){
         res.status(500);
         throw "name of certification is null";
     }
-    if (req.body.description != null){
+    if (req.body.description == null){
         res.status(500);
         throw "description of certification is null";
     }
@@ -60,15 +60,15 @@ app.post('/', (req, res) => {
 
 // Modifier une certificaiton
 app.put('/:id', (req, res) => {
-    if (req.body.name != null){
+    if (req.body.name == null){
         res.status(500);
         throw "name of certification is null";
     }
-    if (req.body.description != null){
+    if (req.body.description == null){
         res.status(500);
         throw "description of certification is null";
     }
-    if (req.params.id != null){
+    if (req.params.id == null){
         res.status(500);
         throw "id of certification is null";
     }
@@ -82,7 +82,7 @@ app.put('/:id', (req, res) => {
 
 // Supprimer une certification
 app.delete('/:id', (req, res) => {
-    if (req.params.id != null){
+    if (req.params.id == null){
         res.status(500);
         throw "id of certification is null";
     }

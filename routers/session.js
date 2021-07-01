@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 
 // Récupérer une session
 app.get('/:id', (req, res) => {
-    if (req.params.id != null){
+    if (req.params.id == null){
         res.status(500);
         throw "id of session is null";
     }
@@ -42,11 +42,11 @@ app.get('/:id', (req, res) => {
 
 // Insérer une session
 app.post('/', (req, res) => {
-    if (req.body.id_certification != null){
+    if (req.body.id_certification == null){
         res.status(500);
         throw "id_certification of session is null";
     }
-    if (req.body.name != null){
+    if (req.body.name == null){
         res.status(500);
         throw "name of session is null";
     }
@@ -60,15 +60,15 @@ app.post('/', (req, res) => {
 
 // Modifier une session
 app.put('/:id', (req, res) => {
-    if (req.body.id_certification != null){
+    if (req.body.id_certification == null){
         res.status(500);
         throw "id_certification of session is null";
     }
-    if (req.body.name != null){
+    if (req.body.name == null){
         res.status(500);
         throw "name of session is null";
     }
-    if (req.params.id != null){
+    if (req.params.id == null){
         res.status(500);
         throw "id of session is null";
     }
@@ -82,7 +82,7 @@ app.put('/:id', (req, res) => {
 
 // Supprimer une session
 app.delete('/:id', (req, res) => {
-    if (req.params.id != null){
+    if (req.params.id == null){
         res.status(500);
         throw "id of session is null";
     }
