@@ -4,17 +4,16 @@ var updateValue = null;
 
 const request = require('supertest')('http://localhost:8080');
 
-describe("Test de la table formation :", function(){
+describe("Test de la table certification :", function(){
 
     // Test la méthode POST
-    it('POST /formations', () => {
+    it('POST /certifications', () => {
         const data = {
             name:'Test nom oui',
-            date: '2021-07-08',
-            id_certification: 1
+            description: 'Test de desciption'
          };
         return request
-            .post ('/formations')
+            .post ('/certifications')
             .send(data)
             .then((res) => {
                 if(typeof(res.body.insertId) == "undefined"){  
@@ -24,9 +23,9 @@ describe("Test de la table formation :", function(){
      });
 
     // Test la méthode GET
-    it('GET /formations', () => {
+    it('GET /certifications', () => {
         return request
-            .get ('/formations')
+            .get ('/certifications')
             .then((res) => {
 
                 if(Object.keys(res.body).length === 0){  
@@ -40,15 +39,14 @@ describe("Test de la table formation :", function(){
     });
 
     // Test la méthode PUT
-    it('PUT /formations', () => {
+    it('PUT /certification', () => {
 
         var numId = updateValue.id;
-        var urlUpdate = "/formations/" + numId.toString();
+        var urlUpdate = "/certifications/" + numId.toString();
 
         const data = {
-            name:'Update nom',
-            date: '1800-07-08',
-            id_certification: 2
+            name: "Update certification Test",
+            description: "Modification"
          };
         return request
             .put (urlUpdate)
@@ -61,10 +59,10 @@ describe("Test de la table formation :", function(){
     });
 
     // Test la méthode DELETE
-    it('DELETE /formations', () => {
+    it('DELETE /certification', () => {
 
         var numId = updateValue.id;
-        var urlUpdate = "/formations/" + numId.toString();
+        var urlUpdate = "/certifications/" + numId.toString();
 
         return request
             .delete(urlUpdate)
