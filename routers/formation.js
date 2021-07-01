@@ -59,7 +59,7 @@ app.put('/:id', (req, res) => {
 app.delete('/:id', (req, res) => {
     if (req.params.id != null){
         var id = parseInt(req.params.id);
-        db.query("DELETE formation WHERE id="+ id, function(err, result){
+        db.query("DELETE FROM formation WHERE id="+ id, function(err, result){
             if (err) throw err;
             res.status(200).json(result);
         })
