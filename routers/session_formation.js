@@ -54,14 +54,14 @@ app.post('/infos', (req, res) => {
 
     var id_session = null;
 
-    db.query("SELECT id FROM session WHERE name=" + req.body.name, function(err, result){
+    db.query("SELECT id FROM session WHERE name='" + req.body.name + "'", function(err, result){
         if (err) throw err;
-        id_session = result.id;
+        id_session = result.body.id;
     });
 
     if (id_session == null){
         res.status(500);
-        throw "id_session is null";
+        throw "id_session is null ";
     }
 
     req.body.id_session.foreach(element => 
