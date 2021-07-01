@@ -15,7 +15,6 @@ const db = mysql.createConnection({
 // Test de la connection :
 db.connect(function(err) {
     if (err) throw err;
-    console.log("Connection établie avec MySql ! ");
 });
 
 // Récupérer les sessions
@@ -39,10 +38,14 @@ app.get('/:id', (req, res) => {
 // Insérer une session
 app.post('/', (req, res) => {
     if (req.body.id_certification != null){
-        db.query("INSERT INTO session (id_certification) VALUES ('" + req.body.id_certification + "')", function(err, result){
-            if (err) throw err;
-            res.status(200).json(result);
-        })
+        if (req.body.name != null){
+            db.query("INSERT INTO session (id_certification, name) VALUES ('" + req.body.id_certification + "', '" + req.body.name + "')", function(err, result){
+                if (err) throw err;
+                res.status(200).json(result);
+            })
+        }else{
+            throw "name of session is null";
+        }
     }else{
         throw "id_certification of session is null";
     }
@@ -51,14 +54,18 @@ app.post('/', (req, res) => {
 // Modifier une session
 app.put('/:id', (req, res) => {
     if (req.body.id_certification != null){
-        if (req.params.id != null){
-            var id = parseInt(req.params.id);
-            db.query("UPDATE session SET id_certification=" + req.body.id_certification + " WHERE id=" + id, function(err, result){
-                if (err) throw err;
-                res.status(200).json(result);
-            })
+        if (req.body.name != null){
+            if (req.params.id != null){
+                var id = parseInt(req.params.id);
+                db.query("UPDATE session SET id_certification=" + req.body.id_certification + " name='" + req.body.name + "' WHERE id=" + id, function(err, result){
+                    if (err) throw err;
+                    res.status(200).json(result);
+                })
+            }else{
+                throw "id of session is null";
+            }
         }else{
-            throw "id of session is null";
+            throw "name of session is null";
         }
     }else{
         throw "id_certification of session is null";

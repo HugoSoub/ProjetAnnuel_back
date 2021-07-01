@@ -15,7 +15,6 @@ const db = mysql.createConnection({
 // Test de la connection :
 db.connect(function(err) {
     if (err) throw err;
-    console.log("Connection établie avec MySql ! ");
 });
 
 // Récupérer les session_formations
@@ -60,10 +59,18 @@ app.post('/', (req, res) => {
 
 // Modifier une session_formation
 app.put('/:id', (req, res) => {
-    if (req.body.date == null)          throw "date of session_formation is null";
-    if (req.body.id_session == null)    throw "id_session of session_formation is null";
-    if (req.body.id_formation == null)  throw "id_formation of session_formation is null";
-    if (req.params.id == null)          throw "id of session_formation is null";
+    if (req.body.date == null){
+        res.status(500).json("{'message':'date of session_formation is null'}");throw "date of session_formation is null";
+    }        
+    if (req.body.id_session == null){
+        res.status(500).send("id_session of session_formation is null");throw "id_session of session_formation is null";
+    }
+    if (req.body.id_formation == null){
+        res.status(500).send("id_formation of session_formation is null");throw "id_formation of session_formation is null";
+    }
+    if (req.params.id == null){
+        res.status(500).send("id of session_formation is null");throw "id of session_formation is null";
+    }          
 
     var id = parseInt(req.params.id);
     db.query("UPDATE session_formation SET date=" + req.body.date + " id_session=" + id_session + 

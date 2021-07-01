@@ -15,7 +15,6 @@ const db = mysql.createConnection({
 // Test de la connection :
 db.connect(function(err) {
     if (err) throw err;
-    console.log("Connection établie avec MySql ! ");
 });
 
 // Récupérer les certifications

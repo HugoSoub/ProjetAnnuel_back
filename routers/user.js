@@ -17,23 +17,31 @@ db.connect(function(err) {
     if (err) throw err;
 });
 
-// Récupérer les formations
+// Récupérer les users
 app.get('/', (req, res) => {
-    db.query("SELECT * FROM formation", function(err, result){
+    db.query("SELECT * FROM user", function(err, result){
         if (err) throw err;
         res.status(200).json(result);
     });
 });
 
-// Récupérer une formation
+// Récupérer un user
 app.get('/:id', (req, res) => {
     var id = parseInt(req.params.id);
-    db.query("SELECT * FROM formation WHERE id=" + id, function(err, result){
+    db.query("SELECT * FROM user WHERE id=" + id, function(err, result){
         if (err) throw err;
         res.status(200).json(result);
     });
 });
 
+// Récupérer un type de user
+app.get('/:roles', (req, res) => {
+    var id = parseInt(req.params.id);
+    db.query("SELECT * FROM user WHERE roles=" + id, function(err, result){
+        if (err) throw err;
+        res.status(200).json(result);
+    });
+});
 
 // Insérer une formation
 app.post('/', (req, res) => {
