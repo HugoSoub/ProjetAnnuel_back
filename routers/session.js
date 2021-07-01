@@ -67,7 +67,6 @@ app.post('/', (req, res) => {
         }
     })
 
-  
     db.query("SELECT id FROM session WHERE name='" + req.body.name + "'", function(err, result){
         if (err) throw err;
 
