@@ -35,41 +35,84 @@ app.get('/:id', (req, res) => {
     });
 });
 
+// Insérer une session_formation avec toutes les formations
+app.post('/infos', (req, res) => {
+    if (req.params.id_certification == null){
+        res.status(500);
+        throw "id of session_formation is null";
+    }   
+    if (req.body.name == null){
+        res.status(500);
+        throw "name of session is null";
+    }
+    if (req.body.ids_formation == null){
+        res.status(500);
+        throw "ids_formation is null";
+    }
+
+    db.query("INSERT INTO session (id_certification, name) VALUES ('" + req.body.id_certification + "', '" + req.body.name + "')");
+
+    var id_session = null;
+
+    db.query("SELECT id FROM session WHERE name=" + req.body.name, function(err, result){
+        if (err) throw err;
+        id_session = result.id;
+    });
+
+    if (id_session == null){
+        res.status(500);
+        throw "id_session is null";
+    }
+
+    req.body.id_session.foreach(element => 
+        db.query("INSERT INTO session_formation (id_formation, id_session) VALUES ("
+            + element + ", " + id_session + ")", function(err, result){
+            if (err) throw err;
+            res.status(200).json(result);
+        })
+    );
+    
+});
 
 // Insérer une session_formation
 app.post('/', (req, res) => {
     if (req.body.date != null){
-        if (req.body.id_session != null){
-            if (req.body.id_formation != null){
-                db.query("INSERT INTO session_formation (date, id_formation, id_session) VALUES ('"
-                 + req.body.date + "', " + req.body.id_formation + ", " + req.body.id_session + ")", function(err, result){
-                    if (err) throw err;
-                    res.status(200).json(result);
-                })
-            }else{
-                throw "id_formation of session_formation is null";
-            }
-        }else{
-            throw "id_session of session_formation is null";
-        }
-    }else{
+        res.status(500);
         throw "date of session_formation is null";
     }
+    if (req.body.id_session != null){
+        res.status(500);
+        throw "id_session of session_formation is null";
+    }
+    if (req.body.id_formation != null){
+        res.status(500);
+        throw "id_formation of session_formation is null";
+    }
+    db.query("INSERT INTO session_formation (date, id_formation, id_session) VALUES ('"
+        + req.body.date + "', " + req.body.id_formation + ", " + req.body.id_session + ")", function(err, result){
+        if (err) throw err;
+        res.status(200).json(result);
+    })
 });
 
 // Modifier une session_formation
 app.put('/:id', (req, res) => {
+
     if (req.body.date == null){
-        res.status(500).json("{'message':'date of session_formation is null'}");throw "date of session_formation is null";
+        res.status(500);
+        throw "date of session_formation is null";
     }        
     if (req.body.id_session == null){
-        res.status(500).send("id_session of session_formation is null");throw "id_session of session_formation is null";
+        res.status(500);
+        throw "id_session of session_formation is null";
     }
     if (req.body.id_formation == null){
-        res.status(500).send("id_formation of session_formation is null");throw "id_formation of session_formation is null";
+        res.status(500);
+        throw "id_formation of session_formation is null";
     }
     if (req.params.id == null){
-        res.status(500).send("id of session_formation is null");throw "id of session_formation is null";
+        res.status(500);
+        throw "id of session_formation is null";
     }          
 
     var id = parseInt(req.params.id);
@@ -83,15 +126,16 @@ app.put('/:id', (req, res) => {
 
 // Supprimer une session_formation
 app.delete('/:id', (req, res) => {
-    if (req.params.id != null){
-        var id = parseInt(req.params.id);
-        db.query("DELETE FROM session_formation WHERE id="+ id, function(err, result){
-            if (err) throw err;
-            res.status(200).json(result);
-        })
-    }else{
+    if (req.params.id == null){
+        res.status(500);
         throw "id of session_formation is null";
     }
+
+    var id = parseInt(req.params.id);
+    db.query("DELETE FROM session_formation WHERE id="+ id, function(err, result){
+        if (err) throw err;
+        res.status(200).json(result);
+    })
 });
 
 module.exports = app;

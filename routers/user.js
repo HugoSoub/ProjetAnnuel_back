@@ -19,71 +19,26 @@ db.connect(function(err) {
 
 // Récupérer les users
 app.get('/', (req, res) => {
-    db.query("SELECT * FROM user", function(err, result){
-        if (err) throw err;
-        res.status(200).json(result);
-    });
 });
 
 // Récupérer un user
 app.get('/:id', (req, res) => {
-    var id = parseInt(req.params.id);
-    db.query("SELECT * FROM user WHERE id=" + id, function(err, result){
-        if (err) throw err;
-        res.status(200).json(result);
-    });
 });
 
 // Récupérer un type de user
 app.get('/:roles', (req, res) => {
-    var id = parseInt(req.params.id);
-    db.query("SELECT * FROM user WHERE roles=" + id, function(err, result){
-        if (err) throw err;
-        res.status(200).json(result);
-    });
 });
 
-// Insérer une formation
+// Insérer une user
 app.post('/', (req, res) => {
-    if (req.body.name != null){
-        db.query("INSERT INTO formation (name) VALUES ('" + req.body.name + "')", function(err, result){
-            if (err) throw err;
-            res.status(200).json(result);
-        })
-    }else{
-        throw "name of formation is null";
-    }
 });
 
-// Modifier une formation
+// Modifier une user
 app.put('/:id', (req, res) => {
-    if (req.body.name != null){
-        if (req.params.id != null){
-            var id = parseInt(req.params.id);
-            db.query("UPDATE formation SET name='" + req.body.name + "' WHERE id=" + id, function(err, result){
-                if (err) throw err;
-                res.status(200).json(result);
-            })
-        }else{
-            throw "id of formation is null";
-        }
-    }else{
-        throw "name of formation is null";
-    }
 });
 
-// Supprimer une formation
+// Supprimer une user
 app.delete('/:id', (req, res) => {
-    if (req.params.id != null){
-        var id = parseInt(req.params.id);
-        db.query("DELETE FROM formation WHERE id="+ id, function(err, result){
-            if (err) throw err;
-            res.status(200).json(result);
-        })
-    }else{
-        throw "id of formation is null";
-    }
-
 });
 
 module.exports = app;
