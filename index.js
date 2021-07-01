@@ -9,5 +9,5 @@ app.use("/formations", formation);
 
 
 app.listen(8080, () => {
-    console.log('Oui allo ? J écoute');
+    console.log('Oui allo ? J\'écoute');
 });
