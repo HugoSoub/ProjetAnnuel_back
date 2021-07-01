@@ -15,7 +15,6 @@ const db = mysql.createConnection({
 // Test de la connection :
 db.connect(function(err) {
     if (err) throw err;
-    console.log("Connection établie avec MySql ! ");
 });
 
 // Récupérer les formations
@@ -26,47 +25,84 @@ app.get('/', (req, res) => {
     });
 });
 
+// Récupérer une formation
+app.get('/:id', (req, res) => {
+    if (req.params.id == null){
+        res.status(500);
+        throw "id of formation is null";
+    }
+
+    var id = parseInt(req.params.id);
+    db.query("SELECT * FROM formation WHERE id=" + id, function(err, result){
+        if (err) throw err;
+        res.status(200).json(result);
+    });
+});
+
+
 // Insérer une formation
 app.post('/', (req, res) => {
-    if (req.body.name != null){
-        db.query("INSERT INTO formation (name) VALUES ('" + req.body.name + "')", function(err, result){
-            if (err) throw err;
-            res.status(200).json(result);
-        })
-    }else{
+    if (req.body.name == null){
+        res.status(500);
         throw "name of formation is null";
     }
+    if (req.body.date == null){
+        res.status(500);
+        throw "date of formation is null";
+    }
+    if (req.body.id_certification == null){
+        res.status(500);
+        throw "id_certification of formation is null";
+    }
+
+
+    db.query("INSERT INTO formation (name, date, id_certification) VALUES ('" + req.body.name + "', '" +
+     req.body.date + "', " + req.body.id_certification + ")", function(err, result){
+        if (err) throw err;
+        res.status(200).json(result);
+    })
 });
 
 // Modifier une formation
 app.put('/:id', (req, res) => {
-    if (req.body.name != null){
-        if (req.params.id != null){
-            var id = parseInt(req.params.id);
-            db.query("UPDATE formation SET name='" + req.body.name + "' WHERE id=" + id, function(err, result){
-                if (err) throw err;
-                res.status(200).json(result);
-            })
-        }else{
-            throw "id of formation is null";
-        }
-    }else{
+    if (req.body.name == null){
+        res.status(500);
         throw "name of formation is null";
     }
+    if (req.params.id == null){
+        res.status(500);
+        throw "id of formation is null";
+    }
+    if (req.body.date == null){
+        res.status(500);
+        throw "date of formation is null";
+    }
+    if (req.body.id_certification == null){
+        res.status(500);
+        throw "id_certification of formation is null";
+    }
+
+
+    var id = parseInt(req.params.id);
+    db.query("UPDATE formation SET name='" + req.body.name + "', date='" + req.body.date 
+    + "', id_certification=" + req.body.id_certification + " WHERE id=" + id, function(err, result){
+        if (err) throw err;
+        res.status(200).json(result);
+    })
 });
 
 // Supprimer une formation
 app.delete('/:id', (req, res) => {
-    if (req.params.id != null){
-        var id = parseInt(req.params.id);
-        db.query("DELETE FROM formation WHERE id="+ id, function(err, result){
-            if (err) throw err;
-            res.status(200).json(result);
-        })
-    }else{
+    if (req.params.id == null){
+        res.status(500);
         throw "id of formation is null";
     }
 
+    var id = parseInt(req.params.id);
+    db.query("DELETE FROM formation WHERE id="+ id, function(err, result){
+        if (err) throw err;
+        res.status(200).json(result);
+    })
 });
 
 module.exports = app;
