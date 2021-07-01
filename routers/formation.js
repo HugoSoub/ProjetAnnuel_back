@@ -52,8 +52,7 @@ app.post('/', (req, res) => {
     }
 
 
-    db.query("INSERT INTO formation (name, date, id_certification) VALUES ('" + req.body.name + "', '" +
-     req.body.date + "', " + req.body.id_certification + ")", function(err, result){
+    db.query("INSERT INTO formation (name, id_certification) VALUES ('" + req.body.name + "', " + req.body.id_certification + ")", function(err, result){
         if (err) throw err;
         res.status(200).json(result);
     })
