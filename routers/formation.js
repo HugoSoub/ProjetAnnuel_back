@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 
 // Récupérer une formation
 app.get('/:id', (req, res) => {
-    if (req.params.id != null){
+    if (req.params.id == null){
         res.status(500);
         throw "id of formation is null";
     }

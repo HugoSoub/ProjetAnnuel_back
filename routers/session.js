@@ -17,6 +17,19 @@ db.connect(function(err) {
     if (err) throw err;
 });
 
+// Connection à la Base de donnée Mysql
+const cb = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "projet_annuel",
+});
+
+// Test de la connection :
+cb.connect(function(err) {
+    if (err) throw err;
+});
+
 // Récupérer les sessions
 app.get('/', (req, res) => {
     db.query("SELECT * FROM session", function(err, result){
@@ -49,8 +62,27 @@ app.post('/', (req, res) => {
 
     db.query("INSERT INTO session (name) VALUES ('" + req.body.name + "')", function(err, result){
         if (err) throw err;
-        res.status(200).json(result);
+        if (req.body.id_formation == null){
+            res.status(200).json(result);
+        }
     })
+
+  
+    db.query("SELECT id FROM session WHERE name='" + req.body.name + "'", function(err, result){
+        if (err) throw err;
+
+        var id_session = result[0].id;
+
+        for(var i = 0; i < 3; i++){
+            cb.query("INSERT INTO session_formation (id_formation, id_session) VALUES (" 
+            + req.body.id_formation + "," + id_session +")", function(err, result){
+                if (err) throw err;
+                if (i == 3){
+                    res.status(200).json(result);
+                }
+            })
+        }
+    })    
 });
 
 // Modifier une session
