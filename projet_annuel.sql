@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 01 juil. 2021 à 16:12
+-- Généré le :  jeu. 01 juil. 2021 à 16:14
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.3.12
 
@@ -125,6 +125,7 @@ DROP TABLE IF EXISTS `session`;
 CREATE TABLE IF NOT EXISTS `session` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) DEFAULT NULL,
+  `status` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
 
@@ -132,40 +133,40 @@ CREATE TABLE IF NOT EXISTS `session` (
 -- Déchargement des données de la table `session`
 --
 
-INSERT INTO `session` (`id`, `name`) VALUES
-(1, ''),
-(2, ''),
-(4, 'qttrf'),
-(5, 'qttrf'),
-(6, 'tristanbul'),
-(7, 'tristanbul'),
-(8, 'trifouille'),
-(9, 'trifouille'),
-(10, 'trifouille'),
-(11, 'cafouille'),
-(12, 'magouille'),
-(13, 'canouille'),
-(14, 'bistouille'),
-(15, 'bistouille'),
-(16, 'mastajajz'),
-(17, 'mzouefbvaze'),
-(18, 'mzouefbvaze'),
-(19, 'eergoibre'),
-(20, 'yyturtur'),
-(21, 'ytreubfifjndee'),
-(22, 'variabledemerde'),
-(23, 'etla'),
-(24, 'etllaaa'),
-(25, 'testoidod'),
-(26, 'bitople'),
-(27, 'jupuyter'),
-(28, 'jupuyter'),
-(29, 'balaba'),
-(30, 'PATATE DOUCE'),
-(31, 'PATATE molle'),
-(32, 'VIOLON'),
-(33, 'ballon'),
-(34, 'ballonbbo');
+INSERT INTO `session` (`id`, `name`, `status`) VALUES
+(1, '', ''),
+(2, '', ''),
+(4, 'qttrf', ''),
+(5, 'qttrf', ''),
+(6, 'tristanbul', ''),
+(7, 'tristanbul', ''),
+(8, 'trifouille', ''),
+(9, 'trifouille', ''),
+(10, 'trifouille', ''),
+(11, 'cafouille', ''),
+(12, 'magouille', ''),
+(13, 'canouille', ''),
+(14, 'bistouille', ''),
+(15, 'bistouille', ''),
+(16, 'mastajajz', ''),
+(17, 'mzouefbvaze', ''),
+(18, 'mzouefbvaze', ''),
+(19, 'eergoibre', ''),
+(20, 'yyturtur', ''),
+(21, 'ytreubfifjndee', ''),
+(22, 'variabledemerde', ''),
+(23, 'etla', ''),
+(24, 'etllaaa', ''),
+(25, 'testoidod', ''),
+(26, 'bitople', ''),
+(27, 'jupuyter', ''),
+(28, 'jupuyter', ''),
+(29, 'balaba', ''),
+(30, 'PATATE DOUCE', ''),
+(31, 'PATATE molle', ''),
+(32, 'VIOLON', ''),
+(33, 'ballon', ''),
+(34, 'ballonbbo', '');
 
 -- --------------------------------------------------------
 
