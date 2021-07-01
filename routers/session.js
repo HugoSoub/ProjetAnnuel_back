@@ -52,12 +52,28 @@ app.get('/:id', (req, res) => {
     });
 });
 
+// Récupérer une session
+app.get('/status/:status', (req, res) => {
+    if (req.params.status == null){
+        res.status(500);
+        throw "status of session is null";
+    }
+    db.query("SELECT * FROM session WHERE status=" + status, function(err, result){
+        if (err) throw err;
+        res.status(200).json(result);
+    });
+});
+
 
 // Insérer une session
 app.post('/', (req, res) => {
     if (req.body.name == null){
         res.status(500);
         throw "name of session is null";
+    }
+    if (req.body.status == null){
+        res.status(500);
+        throw "status of session is null";
     }
 
     db.query("INSERT INTO session (name) VALUES ('" + req.body.name + "')", function(err, result){
