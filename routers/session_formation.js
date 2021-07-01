@@ -35,45 +35,6 @@ app.get('/:id', (req, res) => {
     });
 });
 
-// Insérer une session_formation avec toutes les formations
-app.post('/infos', (req, res) => {
-    if (req.params.id_certification == null){
-        res.status(500);
-        throw "id of session_formation is null";
-    }   
-    if (req.body.name == null){
-        res.status(500);
-        throw "name of session is null";
-    }
-    if (req.body.ids_formation == null){
-        res.status(500);
-        throw "ids_formation is null";
-    }
-
-    db.query("INSERT INTO session (id_certification, name) VALUES (" + req.body.id_certification + ", '" + req.body.name + "')");
-
-    var id_session = null;
-
-    db.query("SELECT id FROM session WHERE name='" + req.body.name + "'", function(err, result){
-        if (err) throw err;
-        id_session = result.body.id;
-    });
-
-    if (id_session == null){
-        res.status(500);
-        throw "id_session is null ";
-    }
-
-    req.body.id_session.foreach(element => 
-        db.query("INSERT INTO session_formation (id_formation, id_session) VALUES ("
-            + element + ", " + id_session + ")", function(err, result){
-            if (err) throw err;
-            res.status(200).json(result);
-        })
-    );
-    
-});
-
 // Insérer une session_formation
 app.post('/', (req, res) => {
     if (req.body.date == null){

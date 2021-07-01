@@ -42,28 +42,19 @@ app.get('/:id', (req, res) => {
 
 // Insérer une session
 app.post('/', (req, res) => {
-    if (req.body.id_certification == null){
-        res.status(500);
-        throw "id_certification of session is null";
-    }
     if (req.body.name == null){
         res.status(500);
         throw "name of session is null";
     }
 
-    db.query("INSERT INTO session (id_certification, name) VALUES ('" + req.body.id_certification + "', '" + req.body.name + "')", function(err, result){
+    db.query("INSERT INTO session (name) VALUES ('" + req.body.name + "')", function(err, result){
         if (err) throw err;
         res.status(200).json(result);
     })
-    
 });
 
 // Modifier une session
 app.put('/:id', (req, res) => {
-    if (req.body.id_certification == null){
-        res.status(500);
-        throw "id_certification of session is null";
-    }
     if (req.body.name == null){
         res.status(500);
         throw "name of session is null";
@@ -74,7 +65,7 @@ app.put('/:id', (req, res) => {
     }
 
     var id = parseInt(req.params.id);
-    db.query("UPDATE session SET id_certification=" + req.body.id_certification + " name='" + req.body.name + "' WHERE id=" + id, function(err, result){
+    db.query("UPDATE session SET name='" + req.body.name + "' WHERE id=" + id, function(err, result){
         if (err) throw err;
         res.status(200).json(result);
     })

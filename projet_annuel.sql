@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 01 juil. 2021 à 10:30
+-- Généré le :  jeu. 01 juil. 2021 à 15:15
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.3.12
 
@@ -34,7 +34,15 @@ CREATE TABLE IF NOT EXISTS `certification` (
   `name` varchar(30) NOT NULL,
   `description` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `certification`
+--
+
+INSERT INTO `certification` (`id`, `name`, `description`) VALUES
+(1, 'node js', 'La certification a pour but de t\'apprendre à faire du node js '),
+(2, 'test', 'rr');
 
 -- --------------------------------------------------------
 
@@ -46,8 +54,11 @@ DROP TABLE IF EXISTS `formation`;
 CREATE TABLE IF NOT EXISTS `formation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `date` date NOT NULL,
+  `id_certification` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_certification` (`id_certification`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -106,10 +117,18 @@ CREATE TABLE IF NOT EXISTS `payment` (
 DROP TABLE IF EXISTS `session`;
 CREATE TABLE IF NOT EXISTS `session` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_certification` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_certification` (`id_certification`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `name` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `session`
+--
+
+INSERT INTO `session` (`id`, `name`) VALUES
+(1, ''),
+(2, ''),
+(4, 'qttrf');
 
 -- --------------------------------------------------------
 
@@ -126,7 +145,14 @@ CREATE TABLE IF NOT EXISTS `session_formation` (
   PRIMARY KEY (`id`),
   KEY `id_session` (`id_session`),
   KEY `id_formation` (`id_formation`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `session_formation`
+--
+
+INSERT INTO `session_formation` (`id`, `date`, `id_formation`, `id_session`) VALUES
+(1, '2021-07-07', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -197,6 +223,12 @@ CREATE TABLE IF NOT EXISTS `user_session` (
 --
 
 --
+-- Contraintes pour la table `formation`
+--
+ALTER TABLE `formation`
+  ADD CONSTRAINT `formation_ibfk_1` FOREIGN KEY (`id_certification`) REFERENCES `certification` (`id`);
+
+--
 -- Contraintes pour la table `participation`
 --
 ALTER TABLE `participation`
@@ -209,12 +241,6 @@ ALTER TABLE `participation`
 ALTER TABLE `payment`
   ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `payment_ibfk_2` FOREIGN KEY (`id_session`) REFERENCES `session` (`id`);
-
---
--- Contraintes pour la table `session`
---
-ALTER TABLE `session`
-  ADD CONSTRAINT `session_ibfk_1` FOREIGN KEY (`id_certification`) REFERENCES `certification` (`id`);
 
 --
 -- Contraintes pour la table `session_formation`
