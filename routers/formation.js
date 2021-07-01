@@ -46,10 +46,6 @@ app.post('/', (req, res) => {
         res.status(500);
         throw "name of formation is null";
     }
-    if (req.body.date == null){
-        res.status(500);
-        throw "date of formation is null";
-    }
     if (req.body.id_certification == null){
         res.status(500);
         throw "id_certification of formation is null";

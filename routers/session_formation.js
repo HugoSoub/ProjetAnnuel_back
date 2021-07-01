@@ -19,7 +19,7 @@ db.connect(function(err) {
 
 // Récupérer les session_formations
 app.get('/', (req, res) => {
-    db.query("SELECT * FROM session_formation", function(err, result){
+    db.query("SELECT * FROM session_formation WHERE date IS NOT NULL", function(err, result){
         if (err) throw err;
         res.status(200).json(result);
     });
@@ -27,6 +27,15 @@ app.get('/', (req, res) => {
 
 // Récupérer une session_formation
 app.get('/:id', (req, res) => {
+    var id = parseInt(req.params.id);
+    db.query("SELECT * FROM session_formation WHERE id=" + id, function(err, result){
+        if (err) throw err;
+        res.status(200).json(result);
+    });
+});
+
+// Récupérer une session_formation à partir de la session
+app.get('/session/:id', (req, res) => {
     var id = parseInt(req.params.id);
     // On fonctionne en id_session si on veut filtrer par session_formation de la même session
     db.query("SELECT * FROM session_formation WHERE id_session=" + id, function(err, result){
@@ -58,7 +67,6 @@ app.post('/', (req, res) => {
 
 // Modifier une session_formation
 app.put('/:id', (req, res) => {
-
     if (req.body.date == null){
         res.status(500);
         throw "date of session_formation is null";
@@ -77,8 +85,7 @@ app.put('/:id', (req, res) => {
     }          
 
     var id = parseInt(req.params.id);
-    db.query("UPDATE session_formation SET date=" + req.body.date + " id_session=" + id_session + 
-    " id_formation=" + id_formation + " WHERE id=" + id, function(err, result){
+    db.query("UPDATE session_formation SET date='" + req.body.date + "', id_session=" + req.body.id_session + ", id_formation=" + req.body.id_formation + " WHERE id=" + id, function(err, result){
         if (err) throw err;
         res.status(200).json(result);
     })

@@ -58,7 +58,7 @@ app.get('/status/:status', (req, res) => {
         res.status(500);
         throw "status of session is null";
     }
-    db.query("SELECT * FROM session WHERE status=" + status, function(err, result){
+    db.query("SELECT * FROM session WHERE status='" + req.params.status + "'", function(err, result){
         if (err) throw err;
         res.status(200).json(result);
     });
@@ -76,7 +76,7 @@ app.post('/', (req, res) => {
         throw "status of session is null";
     }
 
-    db.query("INSERT INTO session (name) VALUES ('" + req.body.name + "')", function(err, result){
+    db.query("INSERT INTO session (name, status) VALUES ('" + req.body.name + "', '" + req.body.status + "')", function(err, result){
         if (err) throw err;
         if (req.body.id_formation == null){
             res.status(200).json(result);
