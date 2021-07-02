@@ -88,15 +88,14 @@ app.post('/', (req, res) => {
 
         var id_session = result[0].id;
 
+        res.setHeader('Content-Type', 'text/json');
+
         for(var i = 0; i < 3; i++){
-            cb.query("INSERT INTO session_formation (id_formation, id_session) VALUES (" 
+            db.query("INSERT INTO session_formation (id_formation, id_session) VALUES (" 
             + req.body.id_formation + "," + id_session +")", function(err, result){
-                if (err) throw err;
-                if (i == 3){
-                    res.status(200).json(result);
-                }
-            })
+                if (err) throw err;})
         }
+        res.status(200).json(result);
     })    
 });
 
