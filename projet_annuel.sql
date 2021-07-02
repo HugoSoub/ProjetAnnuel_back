@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 01 juil. 2021 à 16:14
+-- Généré le :  ven. 02 juil. 2021 à 07:03
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.3.12
 
@@ -34,15 +34,18 @@ CREATE TABLE IF NOT EXISTS `certification` (
   `name` varchar(30) NOT NULL,
   `description` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `certification`
 --
 
 INSERT INTO `certification` (`id`, `name`, `description`) VALUES
-(1, 'node js', 'La certification a pour but de t\'apprendre à faire du node js '),
-(2, 'test', 'rr');
+(4, 'Certification Javascript', 'Cette certification est vraiment compliquée'),
+(5, 'Certification Java', 'Le Java c est plutôt sympa meme si c est pas simple a ecrire'),
+(6, 'Certification Python', 'Plutôt sympa ce langage honnetement'),
+(7, 'Certification PHP', 'Si vous etes un adepte du dollars, il faut y aller'),
+(8, 'Certification C', 'Eheh la question sur les pointeurs est compliqué');
 
 -- --------------------------------------------------------
 
@@ -58,14 +61,22 @@ CREATE TABLE IF NOT EXISTS `formation` (
   `id_certification` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_certification` (`id_certification`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `formation`
 --
 
 INSERT INTO `formation` (`id`, `name`, `date`, `id_certification`) VALUES
-(5, 'testoid', '2021-07-08', 1);
+(6, 'Formation Python 1', '2021-07-12', 6),
+(7, 'Formation Python 2', '2021-07-20', 6),
+(8, 'Formation Python 3', '2021-07-23', 6),
+(9, 'Formation PHP 1', '2021-07-01', 7),
+(10, 'Formation PHP 2', '2021-07-06', 7),
+(11, 'Formation PHP 3', '2021-07-15', 7),
+(12, 'Formation JAVA 1', '2021-07-07', 5),
+(13, 'Formation JAVA 2', '2021-07-08', 5),
+(14, 'Formation Java 3', '2021-07-22', 5);
 
 -- --------------------------------------------------------
 
@@ -127,46 +138,16 @@ CREATE TABLE IF NOT EXISTS `session` (
   `name` varchar(30) DEFAULT NULL,
   `status` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `session`
 --
 
 INSERT INTO `session` (`id`, `name`, `status`) VALUES
-(1, '', ''),
-(2, '', ''),
-(4, 'qttrf', ''),
-(5, 'qttrf', ''),
-(6, 'tristanbul', ''),
-(7, 'tristanbul', ''),
-(8, 'trifouille', ''),
-(9, 'trifouille', ''),
-(10, 'trifouille', ''),
-(11, 'cafouille', ''),
-(12, 'magouille', ''),
-(13, 'canouille', ''),
-(14, 'bistouille', ''),
-(15, 'bistouille', ''),
-(16, 'mastajajz', ''),
-(17, 'mzouefbvaze', ''),
-(18, 'mzouefbvaze', ''),
-(19, 'eergoibre', ''),
-(20, 'yyturtur', ''),
-(21, 'ytreubfifjndee', ''),
-(22, 'variabledemerde', ''),
-(23, 'etla', ''),
-(24, 'etllaaa', ''),
-(25, 'testoidod', ''),
-(26, 'bitople', ''),
-(27, 'jupuyter', ''),
-(28, 'jupuyter', ''),
-(29, 'balaba', ''),
-(30, 'PATATE DOUCE', ''),
-(31, 'PATATE molle', ''),
-(32, 'VIOLON', ''),
-(33, 'ballon', ''),
-(34, 'ballonbbo', '');
+(51, 'Session Php', 'En cours'),
+(52, 'Session Python', 'En cours'),
+(53, 'Session Javascript', 'En cours');
 
 -- --------------------------------------------------------
 
@@ -183,17 +164,19 @@ CREATE TABLE IF NOT EXISTS `session_formation` (
   PRIMARY KEY (`id`),
   KEY `id_session` (`id_session`),
   KEY `id_formation` (`id_formation`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `session_formation`
 --
 
 INSERT INTO `session_formation` (`id`, `date`, `id_formation`, `id_session`) VALUES
-(1, '2021-07-07', 2, 1),
-(7, NULL, 5, 34),
-(8, NULL, 5, 34),
-(9, NULL, 5, 34);
+(42, '2021-07-15', 6, 52),
+(43, '2021-07-20', 7, 52),
+(44, '2021-07-20', 8, 52),
+(45, '2021-07-27', 9, 51),
+(46, NULL, 10, 51),
+(47, NULL, 11, 51);
 
 -- --------------------------------------------------------
 
@@ -209,7 +192,23 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(30) NOT NULL,
   `roles` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `user`
+--
+
+INSERT INTO `user` (`id`, `name`, `firstname`, `email`, `roles`) VALUES
+(3, 'Maurice', 'mouse', 'maurice.mouse@dev.gt', 'Responsable'),
+(4, 'Hugo', 'Sous baie Rat', 'h.sb@dev.gt', 'Expert'),
+(5, 'Paul', 'Anne', 'p.an@dev.gt', 'Expert'),
+(6, 'Thomas', 'Marre qu\'est-ce', 't.mq@dev.gt', 'Expert'),
+(7, 'Gwendal', 'Bernardi', 'g.bd@dev.gt', 'Expert'),
+(8, 'Marc', 'mug', 'm.mg@dev.gt', 'Coach'),
+(9, 'Julie', 'Koala', 'j.kk@dev.gt', 'Coach'),
+(10, 'mireille', 'DuJardin', 'm.dj@dev.gt', 'Candidat'),
+(11, 'Kylian', 'LoupeSonTir', 'c.dommage@dev.gt', 'Candidat'),
+(12, 'gerard', 'Poutre', 'g.pt@dev.gt', 'Candidat');
 
 -- --------------------------------------------------------
 
@@ -257,7 +256,19 @@ CREATE TABLE IF NOT EXISTS `user_session` (
   PRIMARY KEY (`id`),
   KEY `id_session` (`id_session`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `user_session`
+--
+
+INSERT INTO `user_session` (`id`, `id_user`, `id_session`) VALUES
+(2, 12, 52),
+(3, 4, 51),
+(4, 7, 52),
+(5, 6, 51),
+(6, 11, 53),
+(7, 4, 53);
 
 --
 -- Contraintes pour les tables déchargées
