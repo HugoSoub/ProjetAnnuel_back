@@ -199,16 +199,16 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `firstname`, `email`, `roles`) VALUES
-(3, 'Maurice', 'mouse', 'maurice.mouse@dev.gt', 'Responsable'),
-(4, 'Hugo', 'Sous baie Rat', 'h.sb@dev.gt', 'Expert'),
-(5, 'Paul', 'Anne', 'p.an@dev.gt', 'Expert'),
-(6, 'Thomas', 'Marre qu\'est-ce', 't.mq@dev.gt', 'Expert'),
-(7, 'Gwendal', 'Bernardi', 'g.bd@dev.gt', 'Expert'),
-(8, 'Marc', 'mug', 'm.mg@dev.gt', 'Coach'),
-(9, 'Julie', 'Koala', 'j.kk@dev.gt', 'Coach'),
-(10, 'mireille', 'DuJardin', 'm.dj@dev.gt', 'Candidat'),
-(11, 'Kylian', 'LoupeSonTir', 'c.dommage@dev.gt', 'Candidat'),
-(12, 'gerard', 'Poutre', 'g.pt@dev.gt', 'Candidat');
+(3, 'Maurice', 'mouse', 'maurice.mouse@dev.gt', '["Responsable"]'),
+(4, 'Hugo', 'Sous baie Rat', 'h.sb@dev.gt', '["Expert"]'),
+(5, 'Paul', 'Anne', 'p.an@dev.gt', '["Expert","Candidat"]'),
+(6, 'Thomas', 'Marre qu\'est-ce', 't.mq@dev.gt', '["Expert"]'),
+(7, 'Gwendal', 'Bernardi', 'g.bd@dev.gt', '["Expert"]'),
+(8, 'Marc', 'mug', 'm.mg@dev.gt', '["Coach"]'),
+(9, 'Julie', 'Koala', 'j.kk@dev.gt', '["Coach"]'),
+(10, 'mireille', 'DuJardin', 'm.dj@dev.gt', '["Candidat"]'),
+(11, 'Kylian', 'LoupeSonTir', 'c.dommage@dev.gt', '["Candidat"]'),
+(12, 'gerard', 'Poutre', 'g.pt@dev.gt', '["Candidat"]');
 
 -- --------------------------------------------------------
 
