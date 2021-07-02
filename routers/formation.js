@@ -68,10 +68,6 @@ app.put('/:id', (req, res) => {
         res.status(500);
         throw "id of formation is null";
     }
-    if (req.body.date == null){
-        res.status(500);
-        throw "date of formation is null";
-    }
     if (req.body.id_certification == null){
         res.status(500);
         throw "id_certification of formation is null";
@@ -79,8 +75,7 @@ app.put('/:id', (req, res) => {
 
 
     var id = parseInt(req.params.id);
-    db.query("UPDATE formation SET name='" + req.body.name + "', date='" + req.body.date 
-    + "', id_certification=" + req.body.id_certification + " WHERE id=" + id, function(err, result){
+    db.query("UPDATE formation SET name='" + req.body.name + "', id_certification=" + req.body.id_certification + " WHERE id=" + id, function(err, result){
         if (err) throw err;
         res.status(200).json(result);
     })

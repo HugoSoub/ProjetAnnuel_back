@@ -74,7 +74,7 @@ app.put('/:id', (req, res) => {
     }
 
     var id = parseInt(req.params.id);
-    db.query("UPDATE certification SET name='" + req.body.name + "', description='" + req.body.description + "' WHERE id=" + id, function(err, result){
+    db.query('UPDATE certification SET name="' + req.body.name + '", description="' + req.body.description + '" WHERE id=' + id, function(err, result){
         if (err) throw err;
         res.status(200).json(result);
     })
