@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 02 juil. 2021 à 07:03
--- Version du serveur :  10.4.10-MariaDB
--- Version de PHP :  7.3.12
+-- Généré le : ven. 02 juil. 2021 à 07:31
+-- Version du serveur :  5.7.31
+-- Version de PHP : 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `projet_annuel`
+-- Base de données : `projet_annuel`
 --
 
 -- --------------------------------------------------------
@@ -34,18 +33,18 @@ CREATE TABLE IF NOT EXISTS `certification` (
   `name` varchar(30) NOT NULL,
   `description` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `certification`
 --
 
 INSERT INTO `certification` (`id`, `name`, `description`) VALUES
-(4, 'Certification Javascript', 'Cette certification est vraiment compliquée'),
-(5, 'Certification Java', 'Le Java c est plutôt sympa meme si c est pas simple a ecrire'),
-(6, 'Certification Python', 'Plutôt sympa ce langage honnetement'),
-(7, 'Certification PHP', 'Si vous etes un adepte du dollars, il faut y aller'),
-(8, 'Certification C', 'Eheh la question sur les pointeurs est compliqué');
+(1, 'Certification Javascript', 'Cette certification est vraiment compliquée'),
+(2, 'Certification Java', 'Le Java c est plutôt sympa même si c est pas simple a écrire'),
+(3, 'Certification Python', 'Plutôt sympa ce langage honnêtement'),
+(4, 'Certification PHP', 'Si vous êtes un adepte du dollars, il faut y aller'),
+(5, 'Certification C', 'Eheh la question sur les pointeurs est compliqué');
 
 -- --------------------------------------------------------
 
@@ -61,22 +60,16 @@ CREATE TABLE IF NOT EXISTS `formation` (
   `id_certification` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_certification` (`id_certification`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `formation`
 --
 
 INSERT INTO `formation` (`id`, `name`, `date`, `id_certification`) VALUES
-(6, 'Formation Python 1', '2021-07-12', 6),
-(7, 'Formation Python 2', '2021-07-20', 6),
-(8, 'Formation Python 3', '2021-07-23', 6),
-(9, 'Formation PHP 1', '2021-07-01', 7),
-(10, 'Formation PHP 2', '2021-07-06', 7),
-(11, 'Formation PHP 3', '2021-07-15', 7),
-(12, 'Formation JAVA 1', '2021-07-07', 5),
-(13, 'Formation JAVA 2', '2021-07-08', 5),
-(14, 'Formation Java 3', '2021-07-22', 5);
+(1, 'Formation Python', NULL, 3),
+(2, 'Formation PHP', NULL, 4),
+(3, 'Formation JAVA', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -138,16 +131,17 @@ CREATE TABLE IF NOT EXISTS `session` (
   `name` varchar(30) DEFAULT NULL,
   `status` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `session`
 --
 
 INSERT INTO `session` (`id`, `name`, `status`) VALUES
-(51, 'Session Php', 'En cours'),
-(52, 'Session Python', 'En cours'),
-(53, 'Session Javascript', 'En cours');
+(1, 'Session 1 PHP', 'En cours'),
+(2, 'Session 1 Python', 'En cours'),
+(3, 'Session 1 Java', 'En cours'),
+(4, 'Session 2 PHP', 'En cours');
 
 -- --------------------------------------------------------
 
@@ -164,19 +158,25 @@ CREATE TABLE IF NOT EXISTS `session_formation` (
   PRIMARY KEY (`id`),
   KEY `id_session` (`id_session`),
   KEY `id_formation` (`id_formation`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `session_formation`
 --
 
 INSERT INTO `session_formation` (`id`, `date`, `id_formation`, `id_session`) VALUES
-(42, '2021-07-15', 6, 52),
-(43, '2021-07-20', 7, 52),
-(44, '2021-07-20', 8, 52),
-(45, '2021-07-27', 9, 51),
-(46, NULL, 10, 51),
-(47, NULL, 11, 51);
+(1, '2021-07-05', 2, 1),
+(2, '2021-07-06', 2, 1),
+(3, '2021-07-08', 2, 1),
+(4, '2021-07-06', 1, 2),
+(5, '2021-07-09', 1, 2),
+(6, '2021-07-13', 1, 2),
+(7, '2021-07-15', 3, 3),
+(8, NULL, 3, 3),
+(9, NULL, 3, 3),
+(10, NULL, 2, 4),
+(11, NULL, 2, 4),
+(12, NULL, 2, 4);
 
 -- --------------------------------------------------------
 
@@ -192,23 +192,23 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(30) NOT NULL,
   `roles` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `user`
 --
 
 INSERT INTO `user` (`id`, `name`, `firstname`, `email`, `roles`) VALUES
-(3, 'Maurice', 'mouse', 'maurice.mouse@dev.gt', '["Responsable"]'),
-(4, 'Hugo', 'Sous baie Rat', 'h.sb@dev.gt', '["Expert"]'),
-(5, 'Paul', 'Anne', 'p.an@dev.gt', '["Expert","Candidat"]'),
-(6, 'Thomas', 'Marre qu\'est-ce', 't.mq@dev.gt', '["Expert"]'),
-(7, 'Gwendal', 'Bernardi', 'g.bd@dev.gt', '["Expert"]'),
-(8, 'Marc', 'mug', 'm.mg@dev.gt', '["Coach"]'),
-(9, 'Julie', 'Koala', 'j.kk@dev.gt', '["Coach"]'),
-(10, 'mireille', 'DuJardin', 'm.dj@dev.gt', '["Candidat"]'),
-(11, 'Kylian', 'LoupeSonTir', 'c.dommage@dev.gt', '["Candidat"]'),
-(12, 'gerard', 'Poutre', 'g.pt@dev.gt', '["Candidat"]');
+(1, 'MOUSE', 'Maurice', 'maurice.mouse@dev.gt', '[\"Responsable\"]'),
+(2, 'Sous baie Rat', 'Hugo', 'h.sb@dev.gt', '[\"Expert\"]'),
+(3, 'Anne', 'Paul', 'p.an@dev.gt', '[\"Candidat\",\"Expert\"]'),
+(4, 'Marre quest-ce', 'Thomas', 't.mq@dev.gt', '[\"Expert\"]'),
+(5, 'Bernardi', 'Gwendal', 'g.bd@dev.gt', '[\"Expert\"]'),
+(6, 'mug', 'Marc', 'm.mg@dev.gt', '[\"Coach\"]'),
+(7, 'Koala', 'Julie', 'j.kk@dev.gt', '[\"Coach\"]'),
+(8, 'DuJardin', 'mireille', 'm.dj@dev.gt', '[\"Candidat\"]'),
+(9, 'LoupeSonTir', 'Kylian', 'c.dommage@dev.gt', '[\"Candidat\"]'),
+(10, 'Poutre', 'gerard', 'g.pt@dev.gt', '[\"Candidat\"]');
 
 -- --------------------------------------------------------
 
@@ -256,19 +256,16 @@ CREATE TABLE IF NOT EXISTS `user_session` (
   PRIMARY KEY (`id`),
   KEY `id_session` (`id_session`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `user_session`
 --
 
 INSERT INTO `user_session` (`id`, `id_user`, `id_session`) VALUES
-(2, 12, 52),
-(3, 4, 51),
-(4, 7, 52),
-(5, 6, 51),
-(6, 11, 53),
-(7, 4, 53);
+(1, 8, 1),
+(2, 9, 2),
+(3, 10, 2);
 
 --
 -- Contraintes pour les tables déchargées
