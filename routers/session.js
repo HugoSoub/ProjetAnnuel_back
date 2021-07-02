@@ -17,19 +17,6 @@ db.connect(function(err) {
     if (err) throw err;
 });
 
-// Connection à la Base de donnée Mysql
-const cb = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "projet_annuel",
-});
-
-// Test de la connection :
-cb.connect(function(err) {
-    if (err) throw err;
-});
-
 // Récupérer les sessions
 app.get('/', (req, res) => {
     db.query("SELECT * FROM session", function(err, result){
